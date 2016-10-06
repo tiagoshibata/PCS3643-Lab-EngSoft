@@ -22,7 +22,7 @@ public class ListarHoteis extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-pacotes");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-hoteis.jsp");
 		int contagemHoteis = hoteis.getContagemHoteis();
 		String[] nomesHoteis = new String[contagemHoteis];
 		

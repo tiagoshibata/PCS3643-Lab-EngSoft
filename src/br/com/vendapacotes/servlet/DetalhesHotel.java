@@ -21,13 +21,13 @@ public class DetalhesHotel extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Hotel hotel = getHotelByName(request.getParameter("hotel"));
 		
 		if (hotel == null)
 			throw new ServletException("Invalid hotel name");
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-pacote");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-hotel.jsp");
 		request.setAttribute("hotel", hotel);
 		dispatcher.forward(request, response);
 	}
@@ -36,7 +36,7 @@ public class DetalhesHotel extends HttpServlet {
 		int contagemHoteis = hoteis.getContagemHoteis();
 		for (int i = 0; i < contagemHoteis; i++) {
 			Hotel hotel = hoteis.getHotel(i);
-			if (hotel.getNome() == name)
+			if (hotel.getNome().equals(name))
 				return hotel;
 		}
 		return null;
