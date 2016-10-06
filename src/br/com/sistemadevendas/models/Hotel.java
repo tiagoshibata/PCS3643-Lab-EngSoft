@@ -1,4 +1,4 @@
-package br.com.vendapacotes.servlet;
+package br.com.sistemadevendas.models;
 
 public class Hotel {
 	private int id;

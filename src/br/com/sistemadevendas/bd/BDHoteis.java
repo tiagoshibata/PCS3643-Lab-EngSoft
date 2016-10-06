@@ -1,4 +1,6 @@
-package br.com.vendapacotes.servlet;
+package br.com.sistemadevendas.bd;
+
+import br.com.sistemadevendas.models.Hotel;
 
 public class BDHoteis {
 	private static Hotel[] hoteis = {

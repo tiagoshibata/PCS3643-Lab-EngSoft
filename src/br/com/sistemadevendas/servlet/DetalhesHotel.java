@@ -1,4 +1,4 @@
-package br.com.vendapacotes.servlet;
+package br.com.sistemadevendas.servlet;
 
 import java.io.IOException;
 
@@ -9,6 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import br.com.sistemadevendas.bd.BDHoteis;
+import br.com.sistemadevendas.models.Hotel;
 
 @WebServlet("/detalhes-hotel")
 public class DetalhesHotel extends HttpServlet {
