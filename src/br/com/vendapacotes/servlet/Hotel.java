@@ -6,8 +6,11 @@ public class Hotel {
 	private float diaria;
 	private String localizacao;
 	
-	public Hotel(String nome, float diaria, String localizacao) {
-		id = 0;
+	public Hotel(int id, String nome, float diaria, String localizacao) {
+		this.id = id;
+		this.nome = nome;
+		this.diaria = diaria;
+		this.localizacao = localizacao;
 	}
 	
 	public int getId() {
