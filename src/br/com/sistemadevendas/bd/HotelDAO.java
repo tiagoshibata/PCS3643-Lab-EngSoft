@@ -1,4 +1,5 @@
-package br.com.sistemadevendas.dao;
+package br.com.sistemadevendas.bd;
+
 import java.util.List;
 import br.com.sistemadevendas.models.Hotel;
 
