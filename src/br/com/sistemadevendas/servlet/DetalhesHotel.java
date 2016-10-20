@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.sistemadevendas.bd.HotelDAO;
+import br.com.sistemadevendas.bd.HotelMariadb;
 import br.com.sistemadevendas.models.Hotel;
 
 @WebServlet("/detalhes-hotel")
 public class DetalhesHotel extends HttpServlet {
-	private HotelDAO hotelDao = new HotelDAO();
+	private HotelDAO hotelDao = new HotelMariadb();
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {

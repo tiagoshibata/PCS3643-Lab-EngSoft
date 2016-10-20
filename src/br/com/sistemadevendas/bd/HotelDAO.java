@@ -9,4 +9,5 @@ public interface HotelDAO {
    public void adicionarHotel(Hotel hotel);
    public void alterarHotel(Hotel hotel);
    public void deletarHotel(Hotel hotel);
+   public int getContagemHoteis();
 }
