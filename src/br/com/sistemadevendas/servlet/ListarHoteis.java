@@ -10,27 +10,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.sistemadevendas.bd.BDHoteis;
+import br.com.sistemadevendas.bd.HotelDAO;
 import br.com.sistemadevendas.models.Hotel;
 
 @WebServlet("/listar-hoteis")
 public class ListarHoteis extends HttpServlet {
-	private BDHoteis hoteis;
+	private HotelDAO hotelDao = new HotelDAO();
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		hoteis = new BDHoteis();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-hoteis.jsp");
-		int contagemHoteis = hoteis.getContagemHoteis();
+		int contagemHoteis = hotelDao.getContagemHoteis();
 		String[] nomesHoteis = new String[contagemHoteis];
 		
 		for (int i = 0; i < contagemHoteis; i++) {
-			Hotel hotel = hoteis.getHotel(i);
+			Hotel hotel = hotelDao.getHotel(i);
 			nomesHoteis[i] = hotel.getNome();
 		}
 		

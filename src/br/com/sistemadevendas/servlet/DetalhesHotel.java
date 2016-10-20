@@ -10,17 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.sistemadevendas.bd.BDHoteis;
+import br.com.sistemadevendas.bd.HotelDAO;
 import br.com.sistemadevendas.models.Hotel;
 
 @WebServlet("/detalhes-hotel")
 public class DetalhesHotel extends HttpServlet {
-	private BDHoteis hoteis;
+	private HotelDAO hotelDao = new HotelDAO();
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		hoteis = new BDHoteis();
 	}
 
 	@Override
@@ -36,9 +35,9 @@ public class DetalhesHotel extends HttpServlet {
 	}
 	
 	private Hotel getHotelByName(String name) {
-		int contagemHoteis = hoteis.getContagemHoteis();
+		int contagemHoteis = hotelDao.getContagemHoteis();
 		for (int i = 0; i < contagemHoteis; i++) {
-			Hotel hotel = hoteis.getHotel(i);
+			Hotel hotel = hotelDao.getHotel(i);
 			if (hotel.getNome().equals(name))
 				return hotel;
 		}
