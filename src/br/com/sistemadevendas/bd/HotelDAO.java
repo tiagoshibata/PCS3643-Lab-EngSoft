@@ -35,14 +35,20 @@ public class HotelDAO {
 		final String query = "SELECT COUNT(*) FROM hoteis";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
+		ResultSet result = null;
 		try {
 			statement = conn.prepareStatement(query);
-			return statement.executeQuery().getInt(1);
+			result = statement.executeQuery();
+			result.first();
+			return result.getInt(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Query failed");
 			throw new RuntimeException(e);
 		} finally {
+			try {
+				result.close();
+			} catch (SQLException e1) {}
 			try {
 				statement.close();
 			} catch (SQLException e) {}
