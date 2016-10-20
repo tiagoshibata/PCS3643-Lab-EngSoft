@@ -26,15 +26,7 @@ public class ListarHoteis extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-hoteis.jsp");
-		int contagemHoteis = hotelDao.getContagemHoteis();
-		String[] nomesHoteis = new String[contagemHoteis];
-		
-		for (int i = 0; i < contagemHoteis; i++) {
-			Hotel hotel = hotelDao.getHotel(i);
-			nomesHoteis[i] = hotel.getNome();
-		}
-		
-		request.setAttribute("hoteis", nomesHoteis);
+		request.setAttribute("hoteis", hotelDao.getHoteis());
 		dispatcher.forward(request, response);
 	}
 }

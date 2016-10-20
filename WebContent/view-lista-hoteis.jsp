@@ -13,12 +13,12 @@
 		<th>Nome</th>
 	</tr>
 	<%
-		String[] hoteis = (String[])request.getAttribute("hoteis");
-		for (String hotel : hoteis) {
+		List<Hotel> hoteis = ((List<Hotel>)request.getAttribute("hoteis"));
+		for (Hotel hotel : hoteis) {
 	%>
 	<tr>
-		<td><a href="detalhes-hotel?hotel=<%=hotel%>">
-				<%=hotel%>
+		<td><a href="detalhes-hotel?id=<%=hotel.getId()%>">
+				<%=hotel.getNome()%>
 		</a></td>
 	</tr>
 	<%

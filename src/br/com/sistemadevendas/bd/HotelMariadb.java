@@ -68,7 +68,7 @@ public class HotelMariadb implements HotelDAO {
 	@Override
 	public List<Hotel> getHoteis() {
 		ArrayList<Hotel> list = new ArrayList<>();
-		final String query = "SELECT * FROM hoteis WHERE id = ?";
+		final String query = "SELECT * FROM hoteis";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		ResultSet result = null;
