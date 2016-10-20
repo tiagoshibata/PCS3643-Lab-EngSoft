@@ -10,6 +10,7 @@ import java.util.List;
 import br.com.sistemadevendas.models.Hotel;
 
 public class HotelMariadb implements HotelDAO {
+	@Override
 	public Hotel getHotel(int id) {
 		final String query = "SELECT * FROM hoteis WHERE id = ?";
 		Connection conn = BDConnector.getConnection();
@@ -38,6 +39,7 @@ public class HotelMariadb implements HotelDAO {
 		}
 	}
 	
+	@Override
 	public int getContagemHoteis() {
 		final String query = "SELECT COUNT(*) FROM hoteis";
 		Connection conn = BDConnector.getConnection();
