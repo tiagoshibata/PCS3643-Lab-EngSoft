@@ -106,7 +106,7 @@ public class HotelMariadb implements HotelDAO {
 			statement = conn.prepareStatement(query);
 			statement.setInt(1, hotel.getId());
 			statement.setString(2, hotel.getNome());
-			statement.setFloat(3, hotel.getPrecoDiaria());
+			statement.setDouble(3, hotel.getPrecoDiaria());
 			statement.setString(4, hotel.getLocalizacao());
 			statement.execute();
 		} catch (SQLException e) {
@@ -131,7 +131,7 @@ public class HotelMariadb implements HotelDAO {
 		try {
 			statement = conn.prepareStatement(query);
 			statement.setString(1, hotel.getNome());
-			statement.setFloat(2, hotel.getPrecoDiaria());
+			statement.setDouble(2, hotel.getPrecoDiaria());
 			statement.setString(3, hotel.getLocalizacao());
 			statement.setInt(4, hotel.getId());
 			statement.execute();

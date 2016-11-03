@@ -16,7 +16,7 @@ import br.com.sistemadevendas.models.Hotel;
 
 @WebServlet("/detalhes-hotel")
 public class DetalhesHotel extends HttpServlet {
-	private HotelDAO hotelDao = new HotelMariadb();
+	protected HotelDAO hotelDao = new HotelMariadb();
 	
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -25,10 +25,13 @@ public class DetalhesHotel extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Hotel hotel = hotelDao.getHotel(Integer.parseInt(request.getParameter("id")));
+		String id = request.getParameter("id");
+		if (id == null)
+			throw new ServletException("Missing ID parameter");
 		
+		Hotel hotel = hotelDao.getHotel(Integer.parseInt(id));
 		if (hotel == null)
-			throw new ServletException("Invalid hotel name");
+			throw new ServletException("Invalid hotel id");
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-hotel.jsp");
 		request.setAttribute("hotel", hotel);
