@@ -9,9 +9,9 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class HotelDAOStub implements HotelDAO {
 	private static final List<Hotel> hoteis = Arrays.asList(new Hotel[]{
-			new Hotel(0, "Test Hotel 1", 100, "Test City 1"),
-			new Hotel(1, "Test Hotel 2", 200, "Test City 2"),
-			new Hotel(2, "Test Hotel 3", 300, "Test City 3"),
+			new Hotel(0, "Test Hotel 1", 100, 0),
+			new Hotel(1, "Test Hotel 2", 200, 2),
+			new Hotel(2, "Test Hotel 3", 300, 4),
 		});
 	
 	@Override

@@ -25,5 +25,7 @@
 		}
 	%>
 </table>
+<br>
+<a href="fim-roteiro">Terminar roteiro</a>
 </body>
 </html>

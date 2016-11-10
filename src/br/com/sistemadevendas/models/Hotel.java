@@ -6,15 +6,15 @@ public class Hotel {
 	private int id;
 	private String nome;
 	private double diaria;
-	private String localizacao;
+	private int cidade;
 	
-	public Hotel(int id, String nome, double diaria, String localizacao) {
+	public Hotel(int id, String nome, double diaria, int cidade) {
 		if (diaria < 0)
 			throw new InvalidParameterException("diaria precisa ser positiva");
 		this.id = id;
 		this.nome = nome;
 		this.diaria = diaria;
-		this.localizacao = localizacao;
+		this.cidade = cidade;
 	}
 	
 	public int getId() {
@@ -29,7 +29,7 @@ public class Hotel {
 		return nome;
 	}
 	
-	public String getLocalizacao() {
-		return localizacao;
+	public int getCidade() {
+		return cidade;
 	}
 }

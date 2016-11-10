@@ -139,7 +139,7 @@ public class HotelMariadb implements HotelDAO {
 			statement.setInt(1, hotel.getId());
 			statement.setString(2, hotel.getNome());
 			statement.setDouble(3, hotel.getPrecoDiaria());
-			statement.setString(4, hotel.getLocalizacao());
+			statement.setInt(4, hotel.getCidade());
 			statement.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -157,14 +157,14 @@ public class HotelMariadb implements HotelDAO {
 
 	@Override
 	public void alterarHotel(Hotel hotel) {
-		final String query = "UPDATE hoteis SET nome=? diaria=? localizacao=? WHERE id = ?";
+		final String query = "UPDATE hoteis SET nome=? diaria=? cidade=? WHERE id = ?";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		try {
 			statement = conn.prepareStatement(query);
 			statement.setString(1, hotel.getNome());
 			statement.setDouble(2, hotel.getPrecoDiaria());
-			statement.setString(3, hotel.getLocalizacao());
+			statement.setInt(3, hotel.getCidade());
 			statement.setInt(4, hotel.getId());
 			statement.execute();
 		} catch (SQLException e) {
@@ -206,7 +206,7 @@ public class HotelMariadb implements HotelDAO {
 
 	private Hotel hotelFromResult(ResultSet res) {
 		try {
-			return new Hotel(res.getInt(1), res.getString(2), res.getFloat(3), res.getString(4));
+			return new Hotel(res.getInt(1), res.getString(2), res.getFloat(3), res.getInt(4));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

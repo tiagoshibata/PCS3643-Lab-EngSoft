@@ -28,19 +28,19 @@ public class ListarCidades extends HttpServlet {
 		String cpf = request.getParameter("cpf");
 		String hotelId = request.getParameter("hotel");
 		String transporteId = request.getParameter("transporte");
-		if (cpf != null) {
-			UserSession.startSession(cpf);
-		}
-		if (hotelId != null && transporteId != null) {
-			addParada(Integer.parseInt(hotelId), Integer.parseInt(transporteId), 1);
-		}
+		UserSession session;
+		if (cpf != null)
+			session = UserSession.startSession(cpf, Integer.parseInt(request.getParameter("cidade")), Integer.parseInt(request.getParameter("numero-pessoas")));
+		else
+			session = UserSession.getSession();
+		if (hotelId != null && transporteId != null)
+			addParada(session, Integer.parseInt(hotelId), Integer.parseInt(transporteId), 1);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-cidades.jsp");
 		request.setAttribute("cidades", cidadeDao.getCidades());
 		dispatcher.forward(request, response);
 	}
 	
-	private void addParada(int hotelId, int transporteId, int duracao) throws AccessDeniedException {
-		UserSession session = UserSession.getSession();
+	private void addParada(UserSession session, int hotelId, int transporteId, int duracao) throws AccessDeniedException {
 		Hotel hotel = new HotelMariadb().getHotel(hotelId);
 		Transporte transporte = new TransporteMariadb().getTransporte(transporteId);
 		session.addParada(new Parada(hotel, transporte, duracao));

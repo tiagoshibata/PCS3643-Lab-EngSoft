@@ -1,3 +1,4 @@
+<%@page import="br.com.sistemadevendas.bd.TransporteMariadb"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,br.com.sistemadevendas.models.Hotel,br.com.sistemadevendas.models.Transporte"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,7 +8,7 @@
 <title>Informações da cidade</title>
 </head>
 <body>
-	<h1>Hotéis</h1>
+	<h1>Configuração de parada</h1>
 	<form action="listar-cidades">
 		Hotéis:<br>
 		<%
@@ -19,6 +20,21 @@
 		}
 		%>
 		Transportes:<br>
+		<%
+		Transporte[] transportes = (Transporte[]) request.getAttribute("transportes");
+		TransporteMariadb transportemdb = new TransporteMariadb();
+		Transporte maisBarato = transportemdb.transporteMaisBarato();
+		%>
+		<input type="radio" name="transporte" value="<%=maisBarato.getId()%>" checked> <%=maisBarato.getTipo()%> - R$<%=maisBarato.getPreco()%><br>
+		<%
+		for (Transporte transporte : transportes) {
+			if (transporte.getId() != maisBarato.getId()) {
+		%>
+		<input type="radio" name="transporte" value="<%=transporte.getId()%>"> <%=transporte.getTipo()%> - R$<%=transporte.getPreco()%><br>
+		<%
+			}
+		}
+		%>
   		<input type="submit" value="Submit">
 	</form>
 </body>

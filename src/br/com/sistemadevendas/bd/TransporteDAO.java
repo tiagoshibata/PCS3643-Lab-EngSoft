@@ -10,5 +10,5 @@ public interface TransporteDAO {
    public void alterarTransporte(Transporte transporte);
    public void deletarTransporte(Transporte transporte);
    public Transporte transporteMaisBarato();
-   public List<Transporte> getTransportes(Cidade origem, Cidade destino);
+   public List<Transporte> getTransportes(int origem, int destino);
 }

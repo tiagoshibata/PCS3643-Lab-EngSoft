@@ -15,7 +15,7 @@ public class TransporteMariadb implements TransporteDAO {
 
 	@Override
 	public Transporte getTransporte(int id) {
-		final String query = "SELECT * FROM transporte WHERE id = ?";
+		final String query = "SELECT * FROM transportes WHERE id = ?";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -105,7 +105,7 @@ public class TransporteMariadb implements TransporteDAO {
 
 	@Override
 	public void deletarTransporte(Transporte transporte) {
-		final String query = "DELETE FROM transporte WHERE id = ?";
+		final String query = "DELETE FROM transportes WHERE id = ?";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		try {
@@ -130,7 +130,7 @@ public class TransporteMariadb implements TransporteDAO {
 	
 	@Override
 	public Transporte transporteMaisBarato(){
-		final String query = "SELECT MIN(preco) FROM transporte";
+		final String query = "SELECT * FROM transportes ORDER BY preco LIMIT 1";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -145,7 +145,8 @@ public class TransporteMariadb implements TransporteDAO {
 			throw new RuntimeException(e);
 		} finally {
 			try {
-				result.close();
+				if (result != null)
+					result.close();
 			} catch (SQLException e1) {
 			}
 			try {
@@ -160,16 +161,16 @@ public class TransporteMariadb implements TransporteDAO {
 	}
 
 	@Override
-	public List<Transporte> getTransportes(Cidade origem, Cidade destino) {
+	public List<Transporte> getTransportes(int origem, int destino) {
 		ArrayList<Transporte> list = new ArrayList<>();
-		final String query = "SELECT * FROM transporte WHERE origem = ? AND destino = ? ORDER BY preco";
+		final String query = "SELECT * FROM transportes WHERE origem = ? AND destino = ? ORDER BY preco";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		ResultSet result = null;
 		try {
 			statement = conn.prepareStatement(query);
-			statement.setInt(1, origem.getId());
-			statement.setInt(2, destino.getId());
+			statement.setInt(1, origem);
+			statement.setInt(2, destino);
 			result = statement.executeQuery();
 			while (result.next())
 				list.add(transporteFromResult(result));

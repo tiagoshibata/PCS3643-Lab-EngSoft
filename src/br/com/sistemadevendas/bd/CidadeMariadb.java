@@ -181,7 +181,8 @@ public class CidadeMariadb implements CidadeDAO {
 	
 	private Hotel hotelFromResult(ResultSet res) {
 		try {
-			return new Hotel(res.getInt(1), res.getString(2), res.getFloat(3), res.getString(4));
+			int cidadeId = res.getInt(4);
+			return new Hotel(res.getInt(1), res.getString(2), res.getFloat(3), cidadeId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

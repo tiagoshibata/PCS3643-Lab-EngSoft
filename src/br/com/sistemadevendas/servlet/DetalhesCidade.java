@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.sistemadevendas.bd.CidadeDAO;
 import br.com.sistemadevendas.bd.CidadeMariadb;
+import br.com.sistemadevendas.bd.TransporteMariadb;
 import br.com.sistemadevendas.models.Cidade;
 import br.com.sistemadevendas.models.Transporte;
+import br.com.sistemadevendas.session.UserSession;
 
 @WebServlet("/detalhes-cidade")
 public class DetalhesCidade extends HttpServlet {
@@ -27,17 +29,18 @@ public class DetalhesCidade extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		int idInt = Integer.parseInt(id);
 		if (id == null)
 			throw new ServletException("Missing ID parameter");
 		
-		Cidade cidade = cidadeDao.getCidade(Integer.parseInt(id));
+		Cidade cidade = cidadeDao.getCidade(idInt);
 		if (cidade == null)
 			throw new ServletException("Invalid hotel id");
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-cidade.jsp");
 		request.setAttribute("cidade", cidade);
 		request.setAttribute("hoteis", cidade.getHoteis());
-		request.setAttribute("transportes", new Transporte[0]);
+		request.setAttribute("transportes", new TransporteMariadb().getTransportes(UserSession.getSession().getCidadeAtual(), idInt).toArray(new Transporte[0]));
 		dispatcher.forward(request, response);
 	}
 }
