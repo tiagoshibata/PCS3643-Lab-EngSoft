@@ -146,13 +146,13 @@ public class CidadeMariadb implements CidadeDAO {
 	private Cidade cidadeFromResult(ResultSet res) {
 		try {
 			ArrayList<Hotel> listHotel = new ArrayList<>();
-			final String query = "SELECT FROM hoteis WHERE localizacao = ?";
+			final String query = "SELECT * FROM hoteis WHERE cidade = ?";
 			Connection conn = BDConnector.getConnection();
 			PreparedStatement statement = null;
 			ResultSet result = null;
 			try {
 				statement = conn.prepareStatement(query);
-				statement.setString(1, res.getString(2));
+				statement.setInt(1, res.getInt("id"));
 				result = statement.executeQuery();
 				while (result.next())
 					listHotel.add(hotelFromResult(result));
@@ -162,7 +162,8 @@ public class CidadeMariadb implements CidadeDAO {
 				throw new RuntimeException(e);
 			} finally {
 				try {
-					result.close();
+					if (result != null)
+						result.close();
 				} catch (SQLException e1) {}
 				try {
 					statement.close();

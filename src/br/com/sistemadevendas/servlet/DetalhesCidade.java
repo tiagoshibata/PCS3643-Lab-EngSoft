@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.sistemadevendas.bd.CidadeDAO;
 import br.com.sistemadevendas.bd.CidadeMariadb;
 import br.com.sistemadevendas.models.Cidade;
+import br.com.sistemadevendas.models.Transporte;
 
 @WebServlet("/detalhes-cidade")
 public class DetalhesCidade extends HttpServlet {
@@ -35,6 +36,8 @@ public class DetalhesCidade extends HttpServlet {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-cidade.jsp");
 		request.setAttribute("cidade", cidade);
+		request.setAttribute("hoteis", cidade.getHoteis());
+		request.setAttribute("transportes", new Transporte[0]);
 		dispatcher.forward(request, response);
 	}
 }

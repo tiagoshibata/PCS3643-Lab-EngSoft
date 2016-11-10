@@ -9,21 +9,25 @@ import br.com.sistemadevendas.models.Parada;
 
 public class UserSession {
 	private static LinkedList<Parada> roteiro = new LinkedList<>();
-	private static Cliente cliente = null;
+	private static String cpf= null;
 	
 	private UserSession() {}
 	
 	public static UserSession getSession() throws AccessDeniedException {
-		if (cliente == null)
+		if (cpf == null)
 			throw new AccessDeniedException("Nenhuma sessão para cliente iniciada");
 		return new UserSession();
 		
 	}
 	
-	public static UserSession startSession(Cliente cliente) {
-		UserSession.cliente = cliente;
+	public static UserSession startSession(String cpf) {
+		UserSession.cpf = cpf;
 		roteiro.clear();
 		return new UserSession();
+	}
+	
+	public static void stopSession() {
+		cpf = null;
 	}
 	
 	public void addParada(Parada parada) {

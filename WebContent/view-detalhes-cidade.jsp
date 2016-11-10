@@ -8,26 +8,18 @@
 </head>
 <body>
 	<h1>Hotéis</h1>
-	<form action="cidade_confirmada">
+	<form action="listar-cidades">
 		Hotéis:<br>
 		<%
-		List<Hotel> hoteis = ((List<Hotel>)request.getAttribute("hoteis"));
+		Hotel[] hoteis = (Hotel[])request.getAttribute("hoteis");
 		for (Hotel hotel : hoteis) {
 		%>
-		<input type="radio" name="hotel" value="<%=hotel.getId()%>" checked> <%=hotel.getNome()%><br>
+		<input type="radio" name="hotel" value="<%=hotel.getId()%>" checked> <%=hotel.getNome()%> - R$<%=hotel.getPrecoDiaria()%><br>
 		<%
 		}
 		%>
 		Transportes:<br>
-		<%
-		List<Transporte> transportes = ((List<Transporte>)request.getAttribute("transportes"));
-		for (Transporte transporte : transportes) {
-		%>
-		<input type="radio" name="transporte" value="<%=transporte.getId()%>" checked> <%=transporte.getTipo()%><br>
-		<%
-		}
-		%>
-  	<input type="submit" value="Submit">
+  		<input type="submit" value="Submit">
 	</form>
 </body>
 </html>

@@ -1,19 +1,14 @@
 package br.com.sistemadevendas.models;
 
 public class Parada {
-	private Cidade cidade;
 	private Hotel hotel;
 	private Transporte transporte;
 	private int duracao;
 	
-	public Parada(Cidade cidade, Hotel hotel, Transporte transporte) {
-		this.cidade = cidade;
+	public Parada(Hotel hotel, Transporte transporte, int duracao) {
 		this.hotel = hotel;
 		this.transporte = transporte;
-	}
-	
-	public Cidade getCidade() {
-		return cidade;
+		this.duracao = duracao;
 	}
 
 	public Hotel getHotel() {
@@ -26,9 +21,5 @@ public class Parada {
 
 	public int getDuracao() {
 		return duracao;
-	}
-
-	public void setDuracao(int duracao) {
-		this.duracao = duracao;
 	}
 }
