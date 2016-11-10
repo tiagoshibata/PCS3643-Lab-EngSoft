@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.sistemadevendas.models.Cidade;
 import br.com.sistemadevendas.models.Hotel;
 
 public class HotelMariadb implements HotelDAO {
@@ -29,7 +30,7 @@ public class HotelMariadb implements HotelDAO {
 		} finally {
 			try {
 				result.close();
-			} catch (SQLException e1) {}
+			} catch (SQLException e) {}
 			try {
 				statement.close();
 			} catch (SQLException e) {}
@@ -57,7 +58,7 @@ public class HotelMariadb implements HotelDAO {
 		} finally {
 			try {
 				result.close();
-			} catch (SQLException e1) {}
+			} catch (SQLException e) {}
 			try {
 				statement.close();
 			} catch (SQLException e) {}
@@ -87,7 +88,38 @@ public class HotelMariadb implements HotelDAO {
 		} finally {
 			try {
 				result.close();
-			} catch (SQLException e1) {}
+			} catch (SQLException e) {}
+			try {
+				statement.close();
+			} catch (SQLException e) {}
+			try {
+				conn.close();
+			} catch (SQLException e) {}
+		}
+	}
+	
+	@Override
+	public List<Hotel> getHoteis(Cidade cidade) {
+		ArrayList<Hotel> list = new ArrayList<>();
+		final String query = "SELECT * FROM hoteis WHERE cidade = ?";
+		Connection conn = BDConnector.getConnection();
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			statement = conn.prepareStatement(query);
+			statement.setInt(0, cidade.getId());
+			result = statement.executeQuery();
+			while (result.next())
+				list.add(hotelFromResult(result));
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Query failed");
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				result.close();
+			} catch (SQLException e) {}
 			try {
 				statement.close();
 			} catch (SQLException e) {}

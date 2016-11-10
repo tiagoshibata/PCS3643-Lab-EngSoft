@@ -3,6 +3,7 @@ package br.com.sistemadevendas.bd;
 import java.util.Arrays;
 import java.util.List;
 
+import br.com.sistemadevendas.models.Cidade;
 import br.com.sistemadevendas.models.Hotel;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -38,5 +39,8 @@ public class HotelDAOStub implements HotelDAO {
 
 	@Override
 	public void deletarHotel(Hotel hotel) { throw new NotImplementedException(); }
+
+	@Override
+	public List<Hotel> getHoteis(Cidade cidade) { throw new NotImplementedException(); }
 	
 }
