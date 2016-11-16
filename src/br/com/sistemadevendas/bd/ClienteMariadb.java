@@ -157,8 +157,7 @@ public class ClienteMariadb implements ClienteDAO {
 		try {
 			return new Cliente(res.getString(1), res.getString(2));
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
+			return null;  // invalid client
 		}
 	}
 }

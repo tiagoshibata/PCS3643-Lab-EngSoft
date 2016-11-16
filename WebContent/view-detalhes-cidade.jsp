@@ -22,17 +22,10 @@
 		Transportes:<br>
 		<%
 		Transporte[] transportes = (Transporte[]) request.getAttribute("transportes");
-		TransporteMariadb transportemdb = new TransporteMariadb();
-		Transporte maisBarato = transportemdb.transporteMaisBarato();
-		%>
-		<input type="radio" name="transporte" value="<%=maisBarato.getId()%>" checked> <%=maisBarato.getTipo()%> - R$<%=maisBarato.getPreco()%><br>
-		<%
 		for (Transporte transporte : transportes) {
-			if (transporte.getId() != maisBarato.getId()) {
 		%>
 		<input type="radio" name="transporte" value="<%=transporte.getId()%>"> <%=transporte.getTipo()%> - R$<%=transporte.getPreco()%><br>
 		<%
-			}
 		}
 		%>
   		<input type="submit" value="Submit">

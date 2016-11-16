@@ -127,38 +127,6 @@ public class TransporteMariadb implements TransporteDAO {
 			}
 		}
 	}
-	
-	@Override
-	public Transporte transporteMaisBarato(){
-		final String query = "SELECT * FROM transportes ORDER BY preco LIMIT 1";
-		Connection conn = BDConnector.getConnection();
-		PreparedStatement statement = null;
-		ResultSet result = null;
-		try {
-			statement = conn.prepareStatement(query);
-			result = statement.executeQuery();
-			result.first();
-			return transporteFromResult(result);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("Query failed");
-			throw new RuntimeException(e);
-		} finally {
-			try {
-				if (result != null)
-					result.close();
-			} catch (SQLException e1) {
-			}
-			try {
-				statement.close();
-			} catch (SQLException e) {
-			}
-			try {
-				conn.close();
-			} catch (SQLException e) {
-			}
-		}
-	}
 
 	@Override
 	public List<Transporte> getTransportes(int origem, int destino) {
@@ -194,7 +162,7 @@ public class TransporteMariadb implements TransporteDAO {
 			}
 		}
 	}
-	
+
 
 	private Transporte transporteFromResult(ResultSet res) {
 		CidadeMariadb cidademdb = new CidadeMariadb();

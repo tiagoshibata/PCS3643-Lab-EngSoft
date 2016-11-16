@@ -9,6 +9,5 @@ public interface TransporteDAO {
    public void adicionarTransporte(Transporte transporte);
    public void alterarTransporte(Transporte transporte);
    public void deletarTransporte(Transporte transporte);
-   public Transporte transporteMaisBarato();
    public List<Transporte> getTransportes(int origem, int destino);
 }
