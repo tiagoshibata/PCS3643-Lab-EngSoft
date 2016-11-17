@@ -22,13 +22,26 @@
 		Transportes:<br>
 		<%
 		List<Transporte> transportes = (List<Transporte>)request.getAttribute("transportes");
+		Transporte prevTransporte = null;
 		for (Transporte transporte : transportes) {
+			if (transporte != prevTransporte) {
+				if (prevTransporte != null) {
+					%></div><br><%
+				}
+				prevTransporte = transporte;
+				%><button title="<%=transporte.getTipo()%>" type="button"
+				onclick="if(document.getElementById('spoiler-<%=transporte.getId()%>').style.display=='none') {
+					document.getElementById('spoiler-<%=transporte.getId()%>').style.display=''
+				} else {
+					document.getElementById('spoiler-<%=transporte.getId()%>').style.display='none'
+				}"><%=transporte.getTipo()%></button><div id="spoiler-<%=transporte.getId()%>" style="display:none"><%
+			}
 		%>
-		<input type="radio" name="transporte" value="<%=transporte.getId()%>" required> <%=transporte.getTipo()%> - R$<%=transporte.getPreco()%><br>
+		<input type="radio" name="transporte" value="<%=transporte.getId()%>" required> <%=transporte.getTipo()%> - <%=transporte.getData().getHours()%>:<%=transporte.getData().getMinutes()%> - R$<%=transporte.getPreco()%><br>
 		<%
 		}
 		%>
-		Número de diárias:<br>
+		</div><br>Número de diárias:<br>
 		<input type="number" name="dias" min="1" max="30" required><br>
   		<input type="submit" value="Submit">
 	</form>

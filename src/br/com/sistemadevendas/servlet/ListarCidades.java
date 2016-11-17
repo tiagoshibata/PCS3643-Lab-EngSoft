@@ -48,7 +48,7 @@ public class ListarCidades extends HttpServlet {
 			}
 
 		if (cpf != null && numero_pessoas != null && data != null)
-			session = UserSession.startSession(cpf, Integer.parseInt(cidade), Integer.parseInt(numero_pessoas), new Time(data.getTime()));
+			session = UserSession.startSession(cpf, Integer.parseInt(numero_pessoas), Integer.parseInt(cidade), new Time(data.getTime()));
 		else
 			session = UserSession.getSession();
 		if (hotelId != null && transporteId != null && days != null)

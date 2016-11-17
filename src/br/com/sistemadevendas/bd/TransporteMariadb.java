@@ -5,10 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.sistemadevendas.bd.TransporteDAO;
-import br.com.sistemadevendas.models.Cidade;
 import br.com.sistemadevendas.models.Transporte;
 
 public class TransporteMariadb implements TransporteDAO {
@@ -129,9 +129,9 @@ public class TransporteMariadb implements TransporteDAO {
 	}
 
 	@Override
-	public List<Transporte> getTransportes(int origem, int destino) {
+	public List<Transporte> getTransportes(int origem, int destino, Date data) {
 		ArrayList<Transporte> list = new ArrayList<>();
-		final String query = "SELECT * FROM transportes WHERE origem = ? AND destino = ? ORDER BY preco";
+		final String query = "SELECT * FROM transporte WHERE origem = ? AND destino = ? AND DATE(`horario`) = ? ORDER BY preco";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		ResultSet result = null;
@@ -139,6 +139,7 @@ public class TransporteMariadb implements TransporteDAO {
 			statement = conn.prepareStatement(query);
 			statement.setInt(1, origem);
 			statement.setInt(2, destino);
+			statement.setDate(3, new java.sql.Date(data.getTime()));
 			result = statement.executeQuery();
 			while (result.next())
 				list.add(transporteFromResult(result));
@@ -149,7 +150,8 @@ public class TransporteMariadb implements TransporteDAO {
 			throw new RuntimeException(e);
 		} finally {
 			try {
-				result.close();
+				if (result != null)
+					result.close();
 			} catch (SQLException e1) {
 			}
 			try {
@@ -162,14 +164,12 @@ public class TransporteMariadb implements TransporteDAO {
 			}
 		}
 	}
-
-
 	private Transporte transporteFromResult(ResultSet res) {
 		CidadeMariadb cidademdb = new CidadeMariadb();
 
 		try {
 			return new Transporte(res.getInt(1), res.getString(2), res.getFloat(3), cidademdb.getCidade(res.getInt(4)),
-					cidademdb.getCidade(res.getInt(5)));
+					cidademdb.getCidade(res.getInt(5)), res.getDate(6));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
