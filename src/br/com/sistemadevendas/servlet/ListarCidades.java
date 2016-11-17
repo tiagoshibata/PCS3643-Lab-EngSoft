@@ -3,6 +3,9 @@ package br.com.sistemadevendas.servlet;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,9 +38,17 @@ public class ListarCidades extends HttpServlet {
 		String hotelId = request.getParameter("hotel");
 		String transporteId = request.getParameter("transporte");
 		String days = request.getParameter("dias");
+		
+		Date data = null;
+		if (data_inicial != null)
+			try {
+				data = new SimpleDateFormat("yyyy-MM-dd").parse(data_inicial);
+			} catch (ParseException e) {
+				throw new ServletException(e.toString());
+			}
 
-		if (cpf != null && numero_pessoas != null && data_inicial != null)
-			session = UserSession.startSession(cpf, Integer.parseInt(cidade), Integer.parseInt(numero_pessoas), Time.valueOf(data_inicial));
+		if (cpf != null && numero_pessoas != null && data != null)
+			session = UserSession.startSession(cpf, Integer.parseInt(cidade), Integer.parseInt(numero_pessoas), new Time(data.getTime()));
 		else
 			session = UserSession.getSession();
 		if (hotelId != null && transporteId != null && days != null)
