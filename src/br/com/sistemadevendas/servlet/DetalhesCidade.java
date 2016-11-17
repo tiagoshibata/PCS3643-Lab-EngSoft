@@ -42,7 +42,7 @@ public class DetalhesCidade extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-cidade.jsp");
 		request.setAttribute("cidade", cidade);
 		request.setAttribute("hoteis", cidade.getHoteis());
-		request.setAttribute("transportes", transporteDao.getTransportes(UserSession.getSession().getCidadeAtual(), id).toArray(new Transporte[0]));
+		request.setAttribute("transportes", transporteDao.getTransportes(UserSession.getSession().getCidadeAtual(), id));
 		dispatcher.forward(request, response);
 	}
 }

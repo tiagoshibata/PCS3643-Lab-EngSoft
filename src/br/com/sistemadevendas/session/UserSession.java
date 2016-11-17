@@ -1,9 +1,11 @@
 package br.com.sistemadevendas.session;
 
 import java.nio.file.AccessDeniedException;
+import java.sql.Time;
 import java.util.LinkedList;
 import java.util.List;
 
+import br.com.sistemadevendas.bd.ClienteDAO;
 import br.com.sistemadevendas.bd.ClienteMariadb;
 import br.com.sistemadevendas.models.Cliente;
 import br.com.sistemadevendas.models.Parada;
@@ -12,9 +14,10 @@ public class UserSession {
 	private static LinkedList<Parada> roteiro = new LinkedList<>();
 	private static String cpf = null;
 	private static int cidadeAtual = -1;
+	private static Time dataAtual = null;
 	private static int numeroPessoas = -1;
 	
-	private UserSession() {}
+	public static ClienteDAO clienteDao = new ClienteMariadb();
 	
 	public static UserSession getSession() throws AccessDeniedException {
 		if (cpf == null)
@@ -22,13 +25,14 @@ public class UserSession {
 		return new UserSession();
 	}
 	
-	public static UserSession startSession(String cpf, int numeroPessoas, int cidadeBase) throws AccessDeniedException {
-		if (new ClienteMariadb().getCliente(cpf) == null)
+	public static UserSession startSession(String cpf, int numeroPessoas, int cidadeBase, Time dataInicial) throws AccessDeniedException {
+		if (clienteDao.getCliente(cpf) == null)
 			throw new AccessDeniedException("Cliente não encontrado");
 		UserSession.cpf = cpf;
 		UserSession.numeroPessoas = numeroPessoas;
 		cidadeAtual = cidadeBase;
 		roteiro.clear();
+		dataAtual = dataInicial;
 		return new UserSession();
 	}
 	

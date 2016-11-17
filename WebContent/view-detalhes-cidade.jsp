@@ -15,19 +15,21 @@
 		Hotel[] hoteis = (Hotel[])request.getAttribute("hoteis");
 		for (Hotel hotel : hoteis) {
 		%>
-		<input type="radio" name="hotel" value="<%=hotel.getId()%>" checked> <%=hotel.getNome()%> - R$<%=hotel.getPrecoDiaria()%><br>
+		<input type="radio" name="hotel" value="<%=hotel.getId()%>" required> <%=hotel.getNome()%> - R$<%=hotel.getPrecoDiaria()%><br>
 		<%
 		}
 		%>
 		Transportes:<br>
 		<%
-		Transporte[] transportes = (Transporte[]) request.getAttribute("transportes");
+		List<Transporte> transportes = (List<Transporte>)request.getAttribute("transportes");
 		for (Transporte transporte : transportes) {
 		%>
-		<input type="radio" name="transporte" value="<%=transporte.getId()%>"> <%=transporte.getTipo()%> - R$<%=transporte.getPreco()%><br>
+		<input type="radio" name="transporte" value="<%=transporte.getId()%>" required> <%=transporte.getTipo()%> - R$<%=transporte.getPreco()%><br>
 		<%
 		}
 		%>
+		Número de diárias:<br>
+		<input type="number" name="dias" min="1" max="30" required><br>
   		<input type="submit" value="Submit">
 	</form>
 </body>

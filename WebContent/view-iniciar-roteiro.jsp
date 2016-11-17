@@ -24,12 +24,14 @@
 		List<Cidade> cidades = ((List<Cidade>)request.getAttribute("cidades"));
 		for (Cidade cidade : cidades) {
 	%>
-	<input type="radio" name="cidade" value="<%=cidade.getId()%>" checked> <%=cidade.getNome()%><br>
+	<input type="radio" name="cidade" value="<%=cidade.getId()%>" required> <%=cidade.getNome()%><br>
 	<%
 		}
 	%>
-	Número de pessoas: <br>
-	<input type="number" name="numero-pessoas" min="1" max="10">
+	Número de pessoas:<br>
+	<input type="number" name="numero-pessoas" min="1" max="10" required><br>
+	Dia:<br>
+	<input type="date" name="data-inicial" required><br>
 	<input type="submit" value="Submit">
 	</form>
 </body>
