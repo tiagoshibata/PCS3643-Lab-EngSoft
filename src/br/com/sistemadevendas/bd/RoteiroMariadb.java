@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.sistemadevendas.bd.RoteiroDAO;
 import br.com.sistemadevendas.models.RoteiroDeViagem;
@@ -22,6 +24,40 @@ public class RoteiroMariadb implements RoteiroDAO {
 			result = statement.executeQuery();
 			result.first();
 			return roteiroFromResult(result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Query failed");
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				result.close();
+			} catch (SQLException e1) {
+			}
+			try {
+				statement.close();
+			} catch (SQLException e) {
+			}
+			try {
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	}
+	
+	@Override
+	public List<RoteiroDeViagem> getRoteiros(String cpf) {
+		ArrayList<RoteiroDeViagem> list = new ArrayList<>();
+		final String query = "SELECT * FROM roteiros WHERE cpf = ?";
+		Connection conn = BDConnector.getConnection();
+		PreparedStatement statement = null;
+		ResultSet result = null;
+		try {
+			statement = conn.prepareStatement(query);
+			statement.setString(1, cpf);
+			result = statement.executeQuery();
+			while (result.next())
+				list.add(roteiroFromResult(result));
+			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Query failed");
@@ -87,9 +123,7 @@ public class RoteiroMariadb implements RoteiroDAO {
 		try {
 			return new RoteiroDeViagem(clientemdb.getCliente(res.getString(2)), res.getInt(1), res.getInt(3),
 					paradamdb.getParadas(res.getInt(1)));
-		} catch (
-
-		SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
