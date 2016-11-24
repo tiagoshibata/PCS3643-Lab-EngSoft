@@ -80,7 +80,7 @@ public class ParadaMariadb implements ParadaDAO {
 
 	@Override
 	public void adicionarParada(Parada parada, int idRoteiro) {
-		final String query = "INSERT INTO paradas VALUES (?, ?, ?, ?);";
+		final String query = "INSERT INTO paradas VALUES (NULL, ?, ?, ?, ?);";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		try {

@@ -44,7 +44,7 @@ public class RoteiroMariadb implements RoteiroDAO {
 
 	@Override
 	public int adicionarRoteiro(String cpf, int numeroDePessoas) {
-		final String query = "INSERT INTO roteiros VALUES (?, ?);";
+		final String query = "INSERT INTO roteiros VALUES (NULL, ?, ?);";
 		final String queryID = "SELECT LAST_INSERT_ID();";
 		int idRoteiro = -1;
 		Connection conn = BDConnector.getConnection();

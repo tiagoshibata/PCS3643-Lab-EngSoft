@@ -8,6 +8,10 @@ import java.util.List;
 
 import br.com.sistemadevendas.bd.ClienteDAO;
 import br.com.sistemadevendas.bd.ClienteMariadb;
+import br.com.sistemadevendas.bd.ParadaDAO;
+import br.com.sistemadevendas.bd.ParadaMariadb;
+import br.com.sistemadevendas.bd.RoteiroDAO;
+import br.com.sistemadevendas.bd.RoteiroMariadb;
 import br.com.sistemadevendas.models.Parada;
 
 public class UserSession {
@@ -20,6 +24,8 @@ public class UserSession {
 	private static int numeroPessoas = -1;
 	
 	public static ClienteDAO clienteDao = new ClienteMariadb();
+	public static RoteiroDAO roteiroDao = new RoteiroMariadb();
+	public static ParadaDAO paradaDao = new ParadaMariadb();
 	
 	public static UserSession getSession() throws AccessDeniedException {
 		if (cpf == null)
@@ -32,6 +38,7 @@ public class UserSession {
 			throw new AccessDeniedException("Cliente não encontrado");
 		UserSession.cpf = cpf;
 		UserSession.numeroPessoas = numeroPessoas;
+		idRoteiro = roteiroDao.adicionarRoteiro(cpf, numeroPessoas);
 		cidadeInicial = cidadeAtual = cidadeBase;
 		roteiro.clear();
 		dataAtual = dataInicial;
@@ -49,6 +56,7 @@ public class UserSession {
 
 		dataAtual = calendar.getTime();
 		roteiro.add(parada);
+		paradaDao.adicionarParada(parada, idRoteiro);
 		cidadeAtual = parada.getHotel().getCidade();
 	}
 	
