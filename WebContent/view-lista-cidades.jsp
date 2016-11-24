@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.com.sistemadevendas.session.UserSession"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,br.com.sistemadevendas.models.Cidade"%>
@@ -8,6 +9,7 @@
 <title>Cidades disponíveis</title>
 </head>
 <body>
+Data atual no roteiro: <%=new SimpleDateFormat("yyyy-MM-dd hh:mm").format(UserSession.getSession().getDataAtual())%>
 <h1>Lista de Cidades</h1>
 <table style="width: 100%">
 	<tr>
@@ -29,6 +31,6 @@
 	%>
 </table>
 <br>
-<a href="fim-roteiro">Terminar roteiro</a>
+<a href="verificar-roteiro">Terminar roteiro</a>
 </body>
 </html>

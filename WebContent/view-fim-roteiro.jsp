@@ -43,8 +43,11 @@
 	<p>
 		Preco total:<br>R$<%=roteiro.calcularPreco()%>
 	</p>
+	<form action="pagamento.html">
+	<input type="submit" value="Aceitar roteiro e realizar pagamento" />
+	</form>
 	<form action="index.html">
-	<input type="submit" value="Confirmar roteiro" />
+	<input type="submit" value="Cancelar" />
 	</form>
 </body>
 </html>

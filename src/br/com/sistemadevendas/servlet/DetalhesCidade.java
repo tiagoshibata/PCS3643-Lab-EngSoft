@@ -37,7 +37,7 @@ public class DetalhesCidade extends HttpServlet {
 		int id = Integer.parseInt(idStr);
 		Cidade cidade = cidadeDao.getCidade(id);
 		if (cidade == null)
-			throw new ServletException("Invalid hotel id");
+			throw new ServletException("Invalid city id");
 
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-detalhes-cidade.jsp");
 		request.setAttribute("cidade", cidade);

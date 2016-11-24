@@ -14,6 +14,7 @@ import br.com.sistemadevendas.models.Parada;
 public class UserSession {
 	private static LinkedList<Parada> roteiro = new LinkedList<>();
 	private static String cpf = null;
+	private static int cidadeInicial = -1;
 	private static int cidadeAtual = -1;
 	private static Date dataAtual = null;
 	private static int numeroPessoas = -1;
@@ -31,7 +32,7 @@ public class UserSession {
 			throw new AccessDeniedException("Cliente não encontrado");
 		UserSession.cpf = cpf;
 		UserSession.numeroPessoas = numeroPessoas;
-		cidadeAtual = cidadeBase;
+		cidadeInicial = cidadeAtual = cidadeBase;
 		roteiro.clear();
 		dataAtual = dataInicial;
 		return new UserSession();
@@ -44,7 +45,6 @@ public class UserSession {
 	public void addParada(Parada parada) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(dataAtual);
-		calendar.add(Calendar.DATE, parada.getDuracao());
 		calendar.add(Calendar.DATE, parada.getDuracao());
 
 		dataAtual = calendar.getTime();
@@ -59,6 +59,10 @@ public class UserSession {
 	public int getCidadeAtual() {
 		return cidadeAtual;
 	}
+
+	public int getCidadeInicial() {
+		return cidadeInicial;
+	}
 	
 	public int getNumeroPessoas() {
 		return numeroPessoas;
@@ -67,4 +71,5 @@ public class UserSession {
 	public Date getDataAtual() {
 		return dataAtual;
 	}
+
 }

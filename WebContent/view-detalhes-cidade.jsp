@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="br.com.sistemadevendas.bd.TransporteMariadb"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,br.com.sistemadevendas.models.Hotel,br.com.sistemadevendas.models.Transporte"%>
@@ -37,7 +38,7 @@
 				}"><%=transporte.getTipo()%></button><div id="spoiler-<%=transporte.getId()%>" style="display:none"><%
 			}
 		%>
-		<input type="radio" name="transporte" value="<%=transporte.getId()%>" required> <%=transporte.getTipo()%> - <%=transporte.getData().getHours()%>:<%=transporte.getData().getMinutes()%> - R$<%=transporte.getPreco()%><br>
+		<input type="radio" name="transporte" value="<%=transporte.getId()%>" required> <%=transporte.getTipo()%> - <%=new SimpleDateFormat("yyyy-MM-dd hh:mm").format(transporte.getData())%> - R$<%=transporte.getPreco()%><br>
 		<%
 		}
 		%>

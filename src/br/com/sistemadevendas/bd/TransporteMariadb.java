@@ -131,7 +131,7 @@ public class TransporteMariadb implements TransporteDAO {
 	@Override
 	public List<Transporte> getTransportes(int origem, int destino, Date data) {
 		ArrayList<Transporte> list = new ArrayList<>();
-		final String query = "SELECT * FROM transporte WHERE origem = ? AND destino = ? AND DATE(`horario`) = ? ORDER BY preco";
+		final String query = "SELECT * FROM transportes WHERE origem = ? AND destino = ? AND DATE(`horario`) = ? ORDER BY preco";
 		Connection conn = BDConnector.getConnection();
 		PreparedStatement statement = null;
 		ResultSet result = null;
