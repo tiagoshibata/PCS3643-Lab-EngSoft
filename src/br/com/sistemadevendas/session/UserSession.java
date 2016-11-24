@@ -1,7 +1,6 @@
 package br.com.sistemadevendas.session;
 
 import java.nio.file.AccessDeniedException;
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -16,6 +15,7 @@ public class UserSession {
 	private static String cpf = null;
 	private static int cidadeInicial = -1;
 	private static int cidadeAtual = -1;
+	private static int idRoteiro = -1;
 	private static Date dataAtual = null;
 	private static int numeroPessoas = -1;
 	
@@ -70,6 +70,14 @@ public class UserSession {
 	
 	public Date getDataAtual() {
 		return dataAtual;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public int getIdRoteiro() {
+		return idRoteiro;
 	}
 
 }
