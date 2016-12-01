@@ -44,8 +44,12 @@ public class RoteiroDeViagem {
 		float precoTotal = 0;
 
 		for (Parada parada : paradas) {
-			precoTotal += ((parada.getHotel().getPrecoDiaria() * parada.getDuracao()
-					+ parada.getTransporte().getPreco()) * numeroDePessoas);
+			Hotel hotel = parada.getHotel();
+			if (hotel != null)
+				precoTotal += ((parada.getHotel().getPrecoDiaria() * parada.getDuracao()
+						+ parada.getTransporte().getPreco()) * numeroDePessoas);
+			else
+				precoTotal += parada.getTransporte().getPreco() * numeroDePessoas;
 		}
 		return precoTotal;
 	}

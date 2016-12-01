@@ -20,6 +20,9 @@
 		<%
 		}
 		%>
+		<input type="radio" name="hotel" value="null" required> Sem hotel<br>
+		<%
+		%>
 		Transportes:<br>
 		<%
 		List<Transporte> transportes = (List<Transporte>)request.getAttribute("transportes");
