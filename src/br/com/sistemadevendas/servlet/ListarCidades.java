@@ -56,17 +56,23 @@ public class ListarCidades extends HttpServlet {
 			request.setAttribute("message", "Chave transporte inválida");
 			dispatcher.forward(request, response);
 			return;
-		}			
+		}
 		if (transporteId != null && days != null)
-			addParada(session, hotelId == "null" ? null : Integer.parseInt(hotelId), Integer.parseInt(transporteId), Integer.parseInt(days));
+			addParada(session, hotelId, Integer.parseInt(transporteId), Integer.parseInt(days));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-cidades.jsp");
 		request.setAttribute("cidades", cidadeDao.getCidades());
 		dispatcher.forward(request, response);
 	}
 	
-	private void addParada(UserSession session, int hotelId, int transporteId, int duracao) throws AccessDeniedException {
-		Hotel hotel = new HotelMariadb().getHotel(hotelId);
+	private void addParada(UserSession session, String hotelId, int transporteId, int duracao) throws AccessDeniedException {
 		Transporte transporte = new TransporteMariadb().getTransporte(transporteId);
-		session.addParada(new Parada(hotel, transporte, duracao));
+		Hotel hotel = null;
+		if (!hotelId.equals("null")) {
+			hotel = new HotelMariadb().getHotel(Integer.parseInt(hotelId));
+			session.addParada(new Parada(hotel, transporte, duracao));
+		} else {
+			TransporteMariadb transporteDao = new TransporteMariadb();
+			session.addParada(new Parada(transporteDao.getTransporte(transporteId).getDestino().getId(), transporte, duracao));
+		}
 	}
 }

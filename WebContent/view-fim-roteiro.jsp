@@ -31,8 +31,6 @@ body {background-color: #FFF9F2;margin: 20px;}
 		<%} else {%>
 		Roteiro está vazio!
 		<%}%></p>
-	<h1>Paradas</h1>
-
 	<p>
 		Total de paradas:
 		<%=paradas.size()%>
@@ -50,11 +48,13 @@ body {background-color: #FFF9F2;margin: 20px;}
 			for (Parada parada : paradas) {
 		%>
 		<tr>
-			<td><%=new CidadeMariadb().getCidade(parada.getHotel().getCidade()).getNome()%></td>
-			<td><a
-				href="detalhes-hotel?idHotel=<%=parada.getHotel().getId()%>;idParada=<%=paradaID%>"><%=parada.getHotel().getNome()%></a></td>
-			<td><a
-				href="detalhes-transporte?idTransporte=<%=parada.getTransporte().getId()%>;idParada=<%=paradaID%>"><%=parada.getTransporte().getTipo()%></td>
+			<td><%=new CidadeMariadb().getCidade(parada.getCidade()).getNome()%></td>
+			<%if (parada.getHotel() != null) {%>
+			<td><a href="detalhes-hotel?id=<%=parada.getHotel().getId()%>"><%=parada.getHotel().getNome()%></a></td>
+			<%} else {%>
+			<td>Sem hotel</td>
+			<%}%>
+			<td><a href="detalhes-transporte?id=<%=parada.getTransporte().getId()%>"><%=parada.getTransporte().getTipo()%></td>
 			<td><%=parada.getDuracao()%> dia(s)</td>
 		</tr>
 		<%
@@ -63,6 +63,12 @@ body {background-color: #FFF9F2;margin: 20px;}
 		%>
 	</table>
 	<h2>Informações gerais</h2>
+	<p>
+		ID do roteiro:<br><%=roteiro.getId()%>
+	</p>
+	<p>
+		Cliente que criou roteiro:<br><%=roteiro.getCliente().getCpf()%> (<%=roteiro.getCliente().getNome()%>)
+	</p>
 	<p>
 		Número de pessoas:<br><%=roteiro.getNumeroDePessoas()%>
 	</p>
@@ -73,6 +79,7 @@ body {background-color: #FFF9F2;margin: 20px;}
 	<p>
 		Preco total:<br>R$<%=roteiro.calcularPreco()%>
 	</p>
+	<%if (paradas.size() > 0) {%>
 	Forma de pagamento:<br>
 	<form action="pagamento">
 	<input type="radio" name="pagamento" value="cartao" onclick="handleClick(this);" required>Cartão<br>
@@ -81,7 +88,6 @@ body {background-color: #FFF9F2;margin: 20px;}
 	<div id="spoiler-codigo-cartao" style="display:none">
 	Código de identificação da compra por cartão: <input type="text" name="codigo"><br>
 	</div>
-	<%if (paradas.size() > 0) {%>
 	<input type="submit" value="Aceitar roteiro e realizar pagamento" />
 	<%}%></p>
 	</form>

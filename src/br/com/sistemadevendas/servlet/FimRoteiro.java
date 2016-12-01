@@ -27,9 +27,13 @@ public class FimRoteiro extends HttpServlet {
 		String idRoteiro = request.getParameter("roteiro");
 		if (idRoteiro != null) {
 			roteiro = roteiroDao.getRoteiro(Integer.parseInt(idRoteiro));
-			Parada inicio = roteiro.getParadas().get(0);
-			UserSession.startSession(roteiro.getCliente().getCpf(), roteiro.getNumeroDePessoas(),
-					inicio.getHotel().getCidade(), null);
+			List<Parada> paradas = roteiro.getParadas();
+			if (paradas == null || paradas.size() == 0)
+				UserSession.startSession(roteiro.getCliente().getCpf(), roteiro.getNumeroDePessoas(),
+						-1, null);
+			else
+				UserSession.startSession(roteiro.getCliente().getCpf(), roteiro.getNumeroDePessoas(),
+						paradas.get(0).getHotel().getCidade(), null);
 		} else
 			roteiro = UserSession.getSession().getRoteiro();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-fim-roteiro.jsp");

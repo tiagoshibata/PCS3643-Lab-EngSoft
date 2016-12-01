@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLType;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.sistemadevendas.bd.ParadaDAO;
+import br.com.sistemadevendas.models.Hotel;
 import br.com.sistemadevendas.models.Parada;
 
 public class ParadaMariadb implements ParadaDAO {
@@ -86,7 +89,11 @@ public class ParadaMariadb implements ParadaDAO {
 		try {
 			statement = conn.prepareStatement(query);
 			statement.setInt(1, idRoteiro);
-			statement.setInt(2, parada.getHotel().getId());
+			Hotel hotel = parada.getHotel();
+			if (hotel == null)
+				statement.setNull(2, Types.INTEGER);
+			else
+				statement.setInt(2, hotel.getId());
 			statement.setInt(3, parada.getTransporte().getId());
 			statement.setInt(4, parada.getDuracao());
 			statement.execute();

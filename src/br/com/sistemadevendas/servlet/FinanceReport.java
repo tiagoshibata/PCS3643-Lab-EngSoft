@@ -29,7 +29,7 @@ public class FinanceReport extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		PagamentoDAO pagamentoDao = new PagamentoMariadb();
 		RoteiroDAO roteiroDao = new RoteiroMariadb();
-		out.println("Nome,Preço,Forma de pagamento,Código do cartão,Data");
+		out.println("Name,Price,Payment method,Credit card code,Date");
 		for (Pagamento pagamento : pagamentoDao.getPagamentos()) {
 			RoteiroDeViagem roteiro = roteiroDao.getRoteiro(pagamento.getRoteiro());
 			out.print(roteiro.getCliente().getCpf() + "," +

@@ -60,7 +60,7 @@ public class UserSession {
 		dataAtual = calendar.getTime();
 		roteiro.addParada(parada);
 		paradaDao.adicionarParada(parada, idRoteiro);
-		cidadeAtual = parada.getHotel().getCidade();
+		cidadeAtual = parada.getCidade();
 	}
 	
 	public List<Parada> getParadas() {
