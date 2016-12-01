@@ -38,7 +38,7 @@ public class UserSession {
 	public static UserSession startSession(String cpf, int numeroPessoas, int cidadeBase, Date dataInicial) throws AccessDeniedException {
 		Cliente cliente = clienteDao.getCliente(cpf);
 		if (cliente == null)
-			throw new AccessDeniedException("Cliente não encontrado");
+			throw new AccessDeniedException("Cliente " + cpf + " não encontrado");
 		UserSession.cpf = cpf;
 		UserSession.numeroPessoas = numeroPessoas;
 		idRoteiro = roteiroDao.adicionarRoteiro(cpf, numeroPessoas);

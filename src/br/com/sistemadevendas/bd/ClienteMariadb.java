@@ -155,7 +155,7 @@ public class ClienteMariadb implements ClienteDAO {
 
 	private Cliente clienteFromResult(ResultSet res) {
 		try {
-			return new Cliente(res.getString(1), res.getString(2));
+			return new Cliente(res.getString(2), res.getString(1));
 		} catch (SQLException e) {
 			return null;  // invalid client
 		}
