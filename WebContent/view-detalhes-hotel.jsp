@@ -24,7 +24,7 @@ body {background-color: #FFF9F2;margin: 20px;}
 		<li><b>Id:</b> <%=hotel.getId()%>
 		<li><b>Nome:</b> <%=hotel.getNome()%>
 		<li><b>Diária:</b> <%=hotel.getPrecoDiaria()%>
-		<li><b>Localização:</b> <%=new CidadeMariadb().getCidade(hotel.getCidade())%>
+		<li><b>Localização:</b> <%=new CidadeMariadb().getCidade(hotel.getCidade()).getNome()%>
 	</ul>
 </body>
 </html>

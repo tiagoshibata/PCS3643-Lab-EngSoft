@@ -51,6 +51,12 @@ public class ListarCidades extends HttpServlet {
 			session = UserSession.startSession(cpf, Integer.parseInt(numero_pessoas), Integer.parseInt(cidade), new Time(data.getTime()));
 		else
 			session = UserSession.getSession();
+		if (transporteId == null && days != null) {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("error.jsp");
+			request.setAttribute("message", "Chave transporte inválida");
+			dispatcher.forward(request, response);
+			return;
+		}			
 		if (transporteId != null && days != null)
 			addParada(session, hotelId == "null" ? null : Integer.parseInt(hotelId), Integer.parseInt(transporteId), Integer.parseInt(days));
 		RequestDispatcher dispatcher = request.getRequestDispatcher("view-lista-cidades.jsp");

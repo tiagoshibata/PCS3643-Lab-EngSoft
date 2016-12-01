@@ -61,4 +61,8 @@ public class RoteiroDeViagem {
 		}
 		return duracaoTotal;
 	}
+	
+	public void addParada(Parada p) {
+		paradas.add(p);
+	}
 }

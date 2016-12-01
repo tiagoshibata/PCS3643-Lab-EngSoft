@@ -23,6 +23,7 @@ body {background-color: #FFF9F2;margin: 20px;}
 			<th style="text-align: left">CPF Cliente</th>
 			<th style="text-align: left">Valor</th>
 			<th style="text-align: left">Forma de Pagamento</th>
+			<th style="text-align: left">Código de cartão</th>
 			<th style="text-align: left">Data</th>
 		</tr>
 		<%

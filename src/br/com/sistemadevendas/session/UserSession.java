@@ -12,10 +12,12 @@ import br.com.sistemadevendas.bd.ParadaDAO;
 import br.com.sistemadevendas.bd.ParadaMariadb;
 import br.com.sistemadevendas.bd.RoteiroDAO;
 import br.com.sistemadevendas.bd.RoteiroMariadb;
+import br.com.sistemadevendas.models.Cliente;
 import br.com.sistemadevendas.models.Parada;
+import br.com.sistemadevendas.models.RoteiroDeViagem;
 
 public class UserSession {
-	private static LinkedList<Parada> roteiro = new LinkedList<>();
+	private static RoteiroDeViagem roteiro;
 	private static String cpf = null;
 	private static int cidadeInicial = -1;
 	private static int cidadeAtual = -1;
@@ -34,13 +36,14 @@ public class UserSession {
 	}
 	
 	public static UserSession startSession(String cpf, int numeroPessoas, int cidadeBase, Date dataInicial) throws AccessDeniedException {
-		if (clienteDao.getCliente(cpf) == null)
+		Cliente cliente = clienteDao.getCliente(cpf);
+		if (cliente == null)
 			throw new AccessDeniedException("Cliente não encontrado");
 		UserSession.cpf = cpf;
 		UserSession.numeroPessoas = numeroPessoas;
 		idRoteiro = roteiroDao.adicionarRoteiro(cpf, numeroPessoas);
 		cidadeInicial = cidadeAtual = cidadeBase;
-		roteiro.clear();
+		roteiro = new RoteiroDeViagem(cliente, idRoteiro, numeroPessoas, new LinkedList<Parada>());
 		dataAtual = dataInicial;
 		return new UserSession();
 	}
@@ -55,12 +58,16 @@ public class UserSession {
 		calendar.add(Calendar.DATE, parada.getDuracao());
 
 		dataAtual = calendar.getTime();
-		roteiro.add(parada);
+		roteiro.addParada(parada);
 		paradaDao.adicionarParada(parada, idRoteiro);
 		cidadeAtual = parada.getHotel().getCidade();
 	}
 	
-	public List<Parada> getRoteiro() {
+	public List<Parada> getParadas() {
+		return roteiro.getParadas();
+	}
+	
+	public RoteiroDeViagem getRoteiro() {
 		return roteiro;
 	}
 	

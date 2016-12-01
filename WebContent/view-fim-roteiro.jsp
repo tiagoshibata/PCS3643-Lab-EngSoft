@@ -21,13 +21,16 @@ body {background-color: #FFF9F2;margin: 20px;}
 	<h1>Paradas</h1>
 	<%
 		ClienteMariadb clienteDao = new ClienteMariadb();
-		List<Parada> paradas = ((List<Parada>) request.getAttribute("paradas"));
-		RoteiroDeViagem roteiro = new RoteiroDeViagem(clienteDao.getCliente(UserSession.getSession().getCpf()),
-				UserSession.getSession().getIdRoteiro(), UserSession.getSession().getNumeroPessoas(), paradas);
+		RoteiroDeViagem roteiro = ((RoteiroDeViagem) request.getAttribute("roteiro"));
+		List<Parada> paradas = roteiro.getParadas();
 	%>
 	<p>
+		<%if (paradas.size() > 0) {%>
 		Cidade base:
-		<%=paradas.get(0).getTransporte().getOrigem().getNome()%></p>
+		<%=paradas.get(0).getTransporte().getOrigem().getNome()%>
+		<%} else {%>
+		Roteiro está vazio!
+		<%}%></p>
 	<h1>Paradas</h1>
 
 	<p>
@@ -49,9 +52,9 @@ body {background-color: #FFF9F2;margin: 20px;}
 		<tr>
 			<td><%=new CidadeMariadb().getCidade(parada.getHotel().getCidade()).getNome()%></td>
 			<td><a
-				href="view-detalhes-hotel?idHotel=<%=parada.getHotel().getId()%>;idParada=<%=paradaID%>"><%=parada.getHotel().getNome()%></a></td>
+				href="detalhes-hotel?idHotel=<%=parada.getHotel().getId()%>;idParada=<%=paradaID%>"><%=parada.getHotel().getNome()%></a></td>
 			<td><a
-				href="view-detalhes-transporte?idTransporte=<%=parada.getTransporte().getId()%>;idParada=<%=paradaID%>"><%=parada.getTransporte().getTipo()%></td>
+				href="detalhes-transporte?idTransporte=<%=parada.getTransporte().getId()%>;idParada=<%=paradaID%>"><%=parada.getTransporte().getTipo()%></td>
 			<td><%=parada.getDuracao()%> dia(s)</td>
 		</tr>
 		<%
@@ -78,7 +81,9 @@ body {background-color: #FFF9F2;margin: 20px;}
 	<div id="spoiler-codigo-cartao" style="display:none">
 	Código de identificação da compra por cartão: <input type="text" name="codigo"><br>
 	</div>
+	<%if (paradas.size() > 0) {%>
 	<input type="submit" value="Aceitar roteiro e realizar pagamento" />
+	<%}%></p>
 	</form>
 	<script>
 	function handleClick(radio) {
